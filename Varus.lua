@@ -44,10 +44,10 @@ local qOff, wOff, eOff, rOff = 0,0,0,0
 local abilitySequence = {1, 3, 1, 2, 1, 4, 1, 3, 1, 3, 4, 3, 3, 2, 2, 4, 2, 2}
 local Ranges = { AA = 576 }
 local skills = {
-  skillQ = {spellName = "Piercing Arrow", range = 48, speed = 1500, delay = .250, width = 0},
-  skillW = {spellName = "Blighted Quiver", range = 798, speed = 1200, delay = .250, width = 50},
-  skillE = {spellName = "Hail of Arrows", range = 48, speed = 1750, delay = .250, width = 0},
-  skillR = {spellName = "Chain of Corruption", range = 48, speed = 1200, delay = .250, width = 450},
+  skillQ = {spellName = "Piercing Arrow", range = 925, speed = 1500, delay = .250, width = 0},
+  skillW = {spellName = "Blighted Quiver", range = 1, speed = 1200, delay = .250, width = 50},
+  skillE = {spellName = "Hail of Arrows", range = 925, speed = 1750, delay = .250, width = 235},
+  skillR = {spellName = "Chain of Corruption", range = 1075, speed = 1200, delay = .250, width = 450},
 }
 local AnimationCancel =
 {
