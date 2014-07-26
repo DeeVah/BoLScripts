@@ -47,7 +47,7 @@ local skills = {
   skillQ = {spellName = "Piercing Arrow", range = 925, speed = 1500, delay = .250, width = 0},
   skillW = {spellName = "Blighted Quiver", range = 1, speed = 1200, delay = .250, width = 50},
   skillE = {spellName = "Hail of Arrows", range = 925, speed = 1750, delay = .250, width = 235},
-  skillR = {spellName = "Chain of Corruption", range = 1075, speed = 1200, delay = .250, width = 450},
+  skillR = {spellName = "Chain of Corruption", range = 1075, speed = 1200, delay = .250, width = 0},
 }
 local AnimationCancel =
 {
@@ -136,7 +136,7 @@ function initComponents()
 	DManager:CreateCircle(myHero, skills.skillQ.range, 1, {255, 0, 255, 0}):AddToMenu(Menu.drawings,"Q range", true, true, true)
 	DManager:CreateCircle(myHero, skills.skillW.range, 1, {255, 0, 255, 0}):AddToMenu(Menu.drawings,"W range", true, true, true)
 	DManager:CreateCircle(myHero, skills.skillE.range, 1, {255, 0, 255, 0}):AddToMenu(Menu.drawings,"E range", true, true, true)
-	DManager:CreateCircle(myHero, skills.R.range, 1, {255, 0, 255, 0}):AddToMenu(Menu.drawings,"R range", true, true, true)
+	DManager:CreateCircle(myHero, skills.skillR.range, 1, {255, 0, 255, 0}):AddToMenu(Menu.drawings,"R range", true, true, true)
 
 	enemyMinions = minionManager(MINION_ENEMY, 360, myHero, MINION_SORT_MAXHEALTH_DEC)
 	allyMinions = minionManager(MINION_ALLY, 360, myHero, MINION_SORT_MAXHEALTH_DEC)
@@ -278,7 +278,7 @@ function AllInCombo(target, typeCombo)
 		      CastSpell(_E, ePosition.x, ePosition.z)
 		    end
 		end
-		if QREADY and Menu.VarusCombo.qSet.useQ and ValidTarget(target, skills.skillW.range) then
+		if QREADY and Menu.VarusCombo.qSet.useQ and ValidTarget(target, skills.skillQ.range) then
 			local QPosition, QChance = VP:GetLineCastPosition(target, skills.skillQ.delay, skills.skillQ.width, skills.skillQ.range, skills.skillQ.speed, myHero, true)
 
 		    if QPosition ~= nil and GetDistance(QPosition) < skills.skillQ.range and QChance >= 2 then
@@ -335,10 +335,10 @@ function KSQ()
 		rDmg = getDmg("Q", enemy, myHero)
 
 		if RREADY and enemy ~= nil and ValidTarget(enemy, Ranges.Q) and enemy.health < rDmg then
-			local rPosition, rChance = VP:GetLineCastPosition(enemy, skills.skillQ.delay, skills.skillQ.width, skills.skillQ.range, skills.skillQ.speed, myHero, false)
+			local QPosition, QChance = VP:GetLineCastPosition(enemy, skills.skillQ.delay, skills.skillQ.width, skills.skillQ.range, skills.skillQ.speed, myHero, false)
 
-		    if rPosition ~= nil and rChance >= 2 then
-		      CastSpell(_Q, rPosition.x, rPosition.z)
+		    if QPosition ~= nil and rChance >= 2 then
+		      CastSpell(_Q, QPosition.x, QPosition.z)
 		    end
 		end
 	end
