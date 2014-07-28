@@ -228,10 +228,9 @@ end
 -- Harass --
 
 function Harass()	
-	if target ~= nil and ValidTarget(target) then
-		
-		if target.type == myHero.type then
-
+	local enemy = ts.target
+	
+	if enemy ~= nil and ValidTarget(enemy) then
 			if Menu.Harass.useE and ValidTarget(target, skills.E.range) and skills.E.ready then
 				local ePosition, eChance = VP:GetCircularCastPosition(target, skills.E.delay, skills.E.width, skills.E.range, skills.E.speed, myHero, false)
 			    if ePosition ~= nil and eChance >= 2 then
