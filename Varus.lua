@@ -227,18 +227,30 @@ end
 
 -- Harass --
 
-function Harass()
-	local enemy = ts.target
-	
-	if enemy ~= nil and ValidTarget(enemy) then
-		if Menu.Harass.useE and ValidTarget(enemy, Ranges.E + Ranges.AA) and EREADY then
-			CastSpell(_E, enemy)
+function Harass()	
+	if target ~= nil and ValidTarget(target) then
+		
+		if target.type == myHero.type then
+
+			if Menu.Harass.useE and ValidTarget(target, skills.E.range) and skills.E.ready then
+				local ePosition, eChance = VP:GetCircularCastPosition(target, skills.E.delay, skills.E.width, skills.E.range, skills.E.speed, myHero, false)
+			    if ePosition ~= nil and eChance >= 2 then
+			      CastSpell(_E, ePosition.x, ePosition.z)
+			    end
+			end
+
+			if Menu.Harass.useQ and ValidTarget(target, skills.Q.range) and skills.Q.ready then
+
+				local wPosition, wChance = VP:GetLineCastPosition(target, skills.Q.delay, skills.Q.width, skills.Q.range, skills.Q.speed, myHero, false)
+			    if qPosition ~= nil and qChance >= 2 then
+			      CastSpell(_Q, qPosition.x, qPosition.z)
+			    end
+				
+			end
+
 		end
-		if QREADY and Menu.Harass.useQ and ValidTarget(enemy, Ranges.AA + 175) then
-			--CastSpell(_Q)
-		end
+		
 	end
-	
 end
 
 -- End Harass --
@@ -260,14 +272,12 @@ end
 
 function AllInCombo(target, typeCombo)
 	if target ~= nil and typeCombo == 0 then
-		if RREADY and Menu.VarusCombo.rSet.useR and ValidTarget(target, Ranges.R) then
-			rDmg = getDmg("R", target, myHero)
+		
+		if Menu.VarusCombo.rSet.useR and ValidTarget(target, skills.skillR.range) and RREADY then
+			local rPosition, eChance = VP:GetLineCastPosition(target, skills.skillR.delay, skills.skillR.width, skills.skillR.range, skills.skillR.speed, myHero, false)
 
-			if RREADY and target ~= nil and ValidTarget(target, Ranges.R) and target.health < rDmg then
-				local rPosition, rChance = VP:GetLineCastPosition(target, skills.skillR.delay, skills.skillR.width, skills.skillR.range, skills.skillR.speed, myHero, false)
-
-			    if rPosition ~= nil and rChance >= 2 then
-			      CastSpell(_R, rPosition.x, rPosition.z)
+		    if rPosition ~= nil and GetDistance(rPosition) < skills.skillR.range and rChance >= 2 then
+		      CastSpell(_R, rPosition.x, rPosition.z)
 			    end
 			end
 		end
@@ -281,7 +291,7 @@ function AllInCombo(target, typeCombo)
 		if Menu.VarusCombo.qSet.useQ and ValidTarget(target, skills.skillQ.range) and QREADY then
 			local qPosition, qChance = VP:GetLineCastPosition(target, skills.skillQ.delay, skills.skillQ.width, skills.skillQ.range, skills.skillQ.speed, myHero, false)
 
-		    if qPosition ~= nil and GetDistance(qPosition) < skills.skillQ.range and QChance >= 2 then
+		    if qPosition ~= nil and GetDistance(qPosition) < skills.skillQ.range and qChance >= 2 then
 		      CastSpell(_Q, qPosition.x, qPosition.z)
 		    end
 		end
