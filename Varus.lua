@@ -232,7 +232,7 @@ function Harass()
 	
 	if enemy ~= nil and ValidTarget(enemy) then
 			if Menu.Harass.useE and ValidTarget(target, skills.E.range) and skills.E.ready then
-				local ePosition, eChance = VP:GetCircularCastPosition(target, skills.E.delay, skills.E.width, skills.E.range, skills.E.speed, myHero, false)
+				local ePosition, eChance = VP:GetLineCastPosition(target, skills.E.delay, skills.E.width, skills.E.range, skills.E.speed, myHero, false)
 			    if ePosition ~= nil and eChance >= 2 then
 			      CastSpell(_E, ePosition.x, ePosition.z)
 			    end
@@ -243,13 +243,9 @@ function Harass()
 				local wPosition, wChance = VP:GetLineCastPosition(target, skills.Q.delay, skills.Q.width, skills.Q.range, skills.Q.speed, myHero, false)
 			    if qPosition ~= nil and qChance >= 2 then
 			      CastSpell(_Q, qPosition.x, qPosition.z)
-			    end
-				
-			end
-
 		end
-		
 	end
+	
 end
 
 -- End Harass --
