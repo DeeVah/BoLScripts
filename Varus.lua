@@ -44,10 +44,10 @@ local qOff, wOff, eOff, rOff = 0,0,0,0
 local abilitySequence = {1, 3, 1, 2, 1, 4, 1, 3, 1, 3, 4, 3, 3, 2, 2, 4, 2, 2}
 local Ranges = { AA = 576 }
 local skills = {
-  skillQ = {spellName = "Piercing Arrow", range = 925, speed = 1500, delay = .250, width = 0},
-  skillW = {spellName = "Blighted Quiver", range = 1, speed = 1200, delay = .250, width = 50},
+  skillQ = {spellName = "Piercing Arrow", range = 925, speed = 1900, delay = .250, width = 0},
+  skillW = {spellName = "Blighted Quiver", range = 1, speed = 1, delay = .250, width = 50},
   skillE = {spellName = "Hail of Arrows", range = 925, speed = 1750, delay = .250, width = 235},
-  skillR = {spellName = "Chain of Corruption", range = 1075, speed = 1200, delay = .250, width = 0},
+  skillR = {spellName = "Chain of Corruption", range = 1075, speed = 2000, delay = .250, width = 0},
 }
 local AnimationCancel =
 {
@@ -278,11 +278,11 @@ function AllInCombo(target, typeCombo)
 		      CastSpell(_E, ePosition.x, ePosition.z)
 		    end
 		end
-		if QREADY and Menu.VarusCombo.qSet.useQ and ValidTarget(target, skills.skillQ.range) then
-			local QPosition, QChance = VP:GetLineCastPosition(target, skills.skillQ.delay, skills.skillQ.width, skills.skillQ.range, skills.skillQ.speed, myHero, true)
+		if Menu.VarusCombo.qSet.useQ and ValidTarget(target, skills.skillQ.range) and QREADY then
+			local qPosition, qChance = VP:GetLineCastPosition(target, skills.skillQ.delay, skills.skillQ.width, skills.skillQ.range, skills.skillQ.speed, myHero, false)
 
-		    if QPosition ~= nil and GetDistance(QPosition) < skills.skillQ.range and QChance >= 2 then
-		      CastSpell(_Q, QPosition.x, QPosition.z)
+		    if qPosition ~= nil and GetDistance(qPosition) < skills.skillQ.range and QChance >= 2 then
+		      CastSpell(_Q, qPosition.x, qPosition.z)
 		    end
 		end
 	end
